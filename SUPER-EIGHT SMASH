@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define TOTAL_OVERS 10
+#define BALLS_PER_OVER 6
+#define MAX_DISTANCE 100
+
+int play_innings() {
+    int score = 0;
+    int balls_remaining = TOTAL_OVERS * BALLS_PER_OVER;
+
+    while (balls_remaining > 0) {
+        int runs;
+        int distance = rand() % 150;  // Generate a random distance between 0 and 149
+
+        if (distance > MAX_DISTANCE) {
+            runs = 8;  // If the distance is greater than 100, consider it as 8 runs
+        } else {
+            runs = distance / 15;  // Convert the distance to runs based on a scaling factor
+        }
+
+        printf("Distance: %d meters, Runs scored: %d\n", distance, runs);
+        score += runs;
+        balls_remaining--;
+    }
+
+    return score;
+}
+
+void determine_winner(int team1_score, int team2_score) {
+    if (team1_score > team2_score) {
+        printf("Team 1 wins!\n");
+    } else if (team2_score > team1_score) {
+        printf("Team 2 wins!\n");
+    } else {
+        printf("It's a tie!\n");
+    }
+}
+
+int main() {
+    srand(time(0));  // Seed the random number generator
+
+    int team1_score = play_innings();
+    printf("Team 1 Score: %d\n", team1_score);
+
+    int team2_score = play_innings();
+    printf("Team 2 Score: %d\n", team2_score);
+
+    determine_winner(team1_score, team2_score);
+
+    return 0;
+}
+
+
+
